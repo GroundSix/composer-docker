@@ -34,7 +34,3 @@ RUN composer --version
 # Set up the application directory.
 VOLUME ["/app"]
 WORKDIR /app
-
-# Set up the command arguments
-CMD ["-"]
-ENTRYPOINT ["composer", "--ansi"]
