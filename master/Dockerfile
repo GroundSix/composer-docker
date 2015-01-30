@@ -25,6 +25,13 @@ RUN make -C /usr/src/php/ext/mcrypt/
 RUN make -C /usr/src/php/ext/mcrypt/ install
 RUN cp /etc/php5/mods-available/mcrypt.ini /usr/local/etc/php/conf.d/mcrypt.ini
 
+RUN /bin/bash -c "cd /usr/src/php/ext/mbstring/; phpize"
+RUN /bin/bash -c "cd /usr/src/php/ext/mbstring/; ./configure"
+RUN make -C /usr/src/php/ext/mbstring/
+RUN make -C /usr/src/php/ext/mbstring/ install
+RUN echo "extension=mbstring.so" > /etc/php5/mods-available/mbstring.ini
+RUN cp /etc/php5/mods-available/mbstring.ini /usr/local/etc/php/conf.d/mbstring.ini
+
 # Set memory limit
 RUN echo "memory_limit=1024M" > /usr/local/etc/php/conf.d/memory-limit.ini
 
