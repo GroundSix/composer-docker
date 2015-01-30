@@ -18,6 +18,13 @@ RUN php5enmod curl json mysql mysqli pdo_mysql pdo_sqlite readline gd mcrypt pdo
 RUN pecl install zip
 RUN echo "extension=zip.so" > /usr/local/etc/php/conf.d/extension-zip.ini
 
+RUN apt-get install libmcrypt-dev
+RUN /bin/bash -c "cd /usr/src/php/ext/mcrypt/; phpize"
+RUN /bin/bash -c "cd /usr/src/php/ext/mcrypt/; ./configure"
+RUN make -C /usr/src/php/ext/mcrypt/
+RUN make -C /usr/src/php/ext/mcrypt/ install
+RUN cp /etc/php5/mods-available/mcrypt.ini /usr/local/etc/php/conf.d/mcrypt.ini
+
 # Set memory limit
 RUN echo "memory_limit=1024M" > /usr/local/etc/php/conf.d/memory-limit.ini
 
